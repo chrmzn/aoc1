@@ -20,18 +20,23 @@ func main() {
 	var previousData []int64
 
 	for _, line := range rowData {
-		i, err := strconv.ParseInt(line, 10, 0)
+		lineInt, err := strconv.ParseInt(line, 10, 0)
 		if err != nil {
 			panic(err)
 		}
 		// fmt.Printf("Line: %d\n", i)
-		for _, val := range previousData {
-			if val+i == 2020 {
-				prod := val * i
-				fmt.Printf("Equal to 2020: %d, %d; Product: %d\n", val, i, prod)
+		for i, firstVal := range previousData {
+			for j, secondVal := range previousData {
+				if i == j {
+					continue
+				}
+				if firstVal+secondVal+lineInt == 2020 {
+					prod := firstVal * secondVal * lineInt
+					fmt.Printf("Equal to 2020: %d, %d, %d; Product: %d\n", firstVal, secondVal, lineInt, prod)
+				}
 			}
 		}
-		previousData = append(previousData, i)
+		previousData = append(previousData, lineInt)
 
 	}
 }
